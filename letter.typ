@@ -1,12 +1,15 @@
-#let authors(from: (), reply: ()) = [
+#let authors(from: ()) = [
   #set text(size: 8pt)
-
-  == Van: \
 
   #for author in from [
     #show heading: it => block(upper(it.body))
 
     === #author.name
+
+    #if "address" in author [
+      #author.address \
+      #{author.zip + sym.space.en + author.city}
+    ]
 
     #if "email" in author [
       *Email*:~#link("mailto:" + author.email) \
@@ -14,25 +17,18 @@
     #if "phone" in author [
       *Tel.*:~#link("tel:" + author.phone) \
     ]
+
     #if "meta" in author [
       #for (key, value) in author.meta [
         *#key*:~#value
       ]
     ]
   ]
-
-  #pad(top: 1em)[
-    == Retouradres: \
-
-    #reply.address \
-    #{reply.zip + sym.space.en + reply.city}
-  ]
 ]
 
 #let letter(
   doc,
   from: (),
-  reply: (),
   to: (),
   date: text(fill: red)[date is not set],
   subject: text(fill: red)[subject is not set],
@@ -40,18 +36,27 @@
   set document(author: from.map(author => author.name))
   set page(
     paper: "a4",
-    header: text(size: 8pt, fill: luma(50%))[Betreft:~#subject],
-    header-ascent: 4em,
+    margin: (top: 45mm),
     footer: [
       #set align(end)
       #set text(8pt)
-      #counter(page).display((number, total) => text[Pagina #number van #total], both: true)
+      #counter(page).display((number, total) => text[Seite #number von #total], both: true)
     ],
+    background: locate(loc => {
+      place(top + left, line(start: (0mm, 105mm), length: 5mm))
+      place(top + left, line(start: (0mm, 210mm), length: 5mm))
+      }
+    )
   )
-  set text(font: "PT Sans", size: 10pt, lang: "nl")
+  set text(font: "PT Sans", size: 11pt, lang: "de")
 
   grid(
-    columns: (5cm, 100% - 10cm, 5cm),
+    columns: (85mm, 100% - 135mm, 50mm),
+    rows: 2,
+    gutter: 8pt,
+    [],
+    [],
+    authors(from: from),
     [
       *#to.name* \
       #if "department" in to [
@@ -63,21 +68,26 @@
       #parbreak()
     ],
     [],
-    authors(from: from, reply: reply),
+    [],  
   )
 
-  pad(top: 3em)[
-    *Datum:*~#date\
-    *Betreft:*~#subject
-  ]
 
-  pad(top: 3em)[
-    Geachte heer / mevrouw, \
+  pad(top: 8.4mm)[
+    *#subject*
+  ]
+  
+  box(width: 100% - 50mm)[
+    #align(right)[
+      #date
+    ]
+    #pad(top: 2em)[
+      Sehr geehrte Damen und Herren,
+    ]
     #doc
   ]
 
-  pad(top: 3em)[
-    Met vriendelijke groet, \
+  pad(top: 2em)[
+    Mit freundlichen Grüßen \
 
     #for author in from [
       _ #author.name _ \

@@ -4,31 +4,27 @@
   doc,
   from: (
     (
-      name: "Dhr. Lorem Ipsum Dolor",
-      email: "lorem@ipsum.dolor",
-      phone: "0123456789",
-      meta: (BSN: "12345678"),
-    ),
-    (
-      name: "Mevr. Sit Amet",
-      email: "sit.amet@ipsum.dolor",
-      phone: "0123456789",
+      name: "Erika Mustermann",
+      address: "Heidestraße 17", 
+      zip: [51147], 
+      city: "Köln",
+      email: "e.mustermann@posteo.de",
+      phone: "0123 45678-90",
+      meta: (Referenz: "123456789"),
     ),
   ),
-  reply: (address: "Straat 24", zip: "2345 BC", city: "Den Haag"),
+
   to: (
-    name: "Lorem Ipsum",
-    department: "Consectetur adipiscing elit",
-    address: "Straat 1",
-    zip: [1234 AB],
-    city: "Amsterdam",
+    name: "Bundeszentrale für politische Bildung",
+    // department: [],
+    address: "Adenauerallee 86",
+    zip: [53113],
+    city: "Bonn",
   ),
-  date: [22 maart 2023],
-  subject: [Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt],
+  subject: [Lorem ipsum dolor sit amet],
+  date: [15.07.2023],
 )
 
+#lorem(50)
+
 #lorem(100)
-
-#lorem(50)
-
-#lorem(50)
